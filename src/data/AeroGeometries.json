@@ -1,0 +1,308 @@
+[
+  {
+    "model": "Berg",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/berg",
+    "diameter": 0.21100000000000002,
+    "rim": 0.009000000000000001,
+    "height": 0.02,
+    "rimDepth": 0.013999999999999999,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Reko X",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/reko-x",
+    "diameter": 0.214,
+    "rim": 0.011000000000000001,
+    "height": 0.019,
+    "rimDepth": 0.013999999999999999,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Zone",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/zone",
+    "diameter": 0.21100000000000002,
+    "rim": 0.012,
+    "height": 0.02,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Hex",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/hex",
+    "diameter": 0.214,
+    "rim": 0.013999999999999999,
+    "height": 0.016,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Trail",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/trail",
+    "diameter": 0.212,
+    "rim": 0.021,
+    "height": 0.016,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Roadrunner",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/roadrunner",
+    "diameter": 0.21100000000000002,
+    "rim": 0.018000000000000002,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Firebird",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/firebird",
+    "diameter": 0.21100000000000002,
+    "rim": 0.019,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Wraith",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/wraith",
+    "diameter": 0.21100000000000002,
+    "rim": 0.021,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "TeeBird",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/teebird",
+    "diameter": 0.212,
+    "rim": 0.017,
+    "height": 0.015,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Anax",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/anax",
+    "diameter": 0.214,
+    "rim": 0.019,
+    "height": 0.017,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Astronaut",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/astronaut",
+    "diameter": 0.212,
+    "rim": 0.023,
+    "height": 0.018000000000000002,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Beast",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/beast",
+    "diameter": 0.212,
+    "rim": 0.02,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Crave",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/crave",
+    "diameter": 0.21100000000000002,
+    "rim": 0.018000000000000002,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "D Model US",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/d-model-us",
+    "diameter": 0.21,
+    "rim": 0.022000000000000002,
+    "height": 0.016,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Deflector",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/deflector",
+    "diameter": 0.215,
+    "rim": 0.016,
+    "height": 0.02,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Destroyer",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/destroyer",
+    "diameter": 0.21100000000000002,
+    "rim": 0.022000000000000002,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "EMAC Truth",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/emac-truth",
+    "diameter": 0.217,
+    "rim": 0.015,
+    "height": 0.018000000000000002,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Envy",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/envy",
+    "diameter": 0.21,
+    "rim": 0.011000000000000001,
+    "height": 0.018000000000000002,
+    "rimDepth": 0.013999999999999999,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "F9",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/f9",
+    "diameter": 0.21100000000000002,
+    "rim": 0.018000000000000002,
+    "height": 0.019,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Fireball",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/fireball",
+    "diameter": 0.21100000000000002,
+    "rim": 0.02,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Force",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/force",
+    "diameter": 0.21100000000000002,
+    "rim": 0.023,
+    "height": 0.017,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Guld",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/guld",
+    "diameter": 0.21100000000000002,
+    "rim": 0.023,
+    "height": 0.018000000000000002,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Göte",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/gote",
+    "diameter": 0.21899999999999997,
+    "rim": 0.013000000000000001,
+    "height": 0.021,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Jet",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/jet",
+    "diameter": 0.212,
+    "rim": 0.022000000000000002,
+    "height": 0.015,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Justice",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/justice",
+    "diameter": 0.213,
+    "rim": 0.015,
+    "height": 0.017,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "M Model US",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/m-model-us",
+    "diameter": 0.218,
+    "rim": 0.013000000000000001,
+    "height": 0.019,
+    "rimDepth": 0.015,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Nord",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/nord",
+    "diameter": 0.217,
+    "rim": 0.013000000000000001,
+    "height": 0.02,
+    "rimDepth": 0.013000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Panic",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/panic",
+    "diameter": 0.21100000000000002,
+    "rim": 0.024,
+    "height": 0.017,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Patrol",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/patrol",
+    "diameter": 0.217,
+    "rim": 0.013999999999999999,
+    "height": 0.016,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Renegade",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/renegade",
+    "diameter": 0.212,
+    "rim": 0.021,
+    "height": 0.017,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Resistor",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/resistor",
+    "diameter": 0.21100000000000002,
+    "rim": 0.017,
+    "height": 0.015,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Tern",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/tern",
+    "diameter": 0.21100000000000002,
+    "rim": 0.023,
+    "height": 0.017,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Thunderbird",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/thunderbird",
+    "diameter": 0.212,
+    "rim": 0.019,
+    "height": 0.016,
+    "rimDepth": 0.011000000000000001,
+    "retrieved": "2026-09-19"
+  },
+  {
+    "model": "Valkyrie",
+    "source": "https://www.pdga.com/technical-standards/equipment-certification/discs/valkyrie",
+    "diameter": 0.21100000000000002,
+    "rim": 0.019,
+    "height": 0.013999999999999999,
+    "rimDepth": 0.012,
+    "retrieved": "2026-09-19"
+  }
+]

@@ -1,0 +1,355 @@
+[
+  {
+    "id": "innova-destroyer",
+    "name": "Destroyer",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 12,
+      "glide": 5,
+      "turn": -1,
+      "fade": 3
+    },
+    "plastics": ["Champion", "Star", "DX"]
+  },
+  {
+    "id": "innova-wraith",
+    "name": "Wraith",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 11,
+      "glide": 5,
+      "turn": -1,
+      "fade": 3
+    },
+    "plastics": ["Champion", "Star", "DX"]
+  },
+  {
+    "id": "innova-teebird",
+    "name": "Teebird",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 7,
+      "glide": 5,
+      "turn": 0,
+      "fade": 2
+    },
+    "plastics": ["Champion", "Star", "DX"]
+  },
+  {
+    "id": "innova-aviar-classic",
+    "name": "Aviar (Classic)",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 2,
+      "glide": 3,
+      "turn": 0,
+      "fade": 0
+    },
+    "plastics": ["DX", "Champion"]
+  },
+  {
+    "id": "discraft-buzzz",
+    "name": "Buzzz",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 5,
+      "glide": 4,
+      "turn": -1,
+      "fade": 1
+    },
+    "plastics": ["ESP", "Z", "Big Z", "Titanium"]
+  },
+  {
+    "id": "discraft-nuke",
+    "name": "Nuke",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 13,
+      "glide": 5,
+      "turn": -1,
+      "fade": 3
+    },
+    "plastics": ["ESP", "Z", "Big Z"]
+  },
+  {
+    "id": "discraft-nuke-os",
+    "name": "Nuke OS",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 13,
+      "glide": 4,
+      "turn": 0,
+      "fade": 4
+    },
+    "plastics": ["ESP", "Z"]
+  },
+  {
+    "id": "discraft-anax",
+    "name": "Anax",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 10,
+      "glide": 6,
+      "turn": 0,
+      "fade": 3
+    },
+    "plastics": ["ESP", "Z"]
+  },
+  {
+    "id": "discraft-undertaker",
+    "name": "Undertaker",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 9,
+      "glide": 5,
+      "turn": -1,
+      "fade": 2
+    },
+    "plastics": ["ESP", "Z"]
+  },
+  {
+    "id": "discraft-zone",
+    "name": "Zone",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 4,
+      "glide": 3,
+      "turn": 0,
+      "fade": 3
+    },
+    "plastics": ["Putter Line", "ESP", "Z"]
+  },
+  {
+    "id": "latitude64-ballista-pro",
+    "name": "Ballista Pro",
+    "brand": "Latitude 64",
+    "flight_numbers": {
+      "speed": 14,
+      "glide": 5,
+      "turn": 0,
+      "fade": 3
+    },
+    "plastics": ["Opto", "Gold"]
+  },
+  {
+    "id": "kastaplast-berg",
+    "name": "Berg",
+    "brand": "Kastaplast",
+    "flight_numbers": {
+      "speed": 1,
+      "glide": 1,
+      "turn": 0,
+      "fade": 2
+    },
+    "plastics": ["K1"],
+    "source": "https://www.kastaplast.com/en-us/products/k1-berg"
+  },
+  {
+    "id": "kastaplast-reko-x",
+    "name": "Reko X",
+    "brand": "Kastaplast",
+    "flight_numbers": {
+      "speed": 3,
+      "glide": 3,
+      "turn": 0,
+      "fade": 2
+    },
+    "plastics": ["K1"],
+    "source": "https://www.kastaplast.com/en-us/products/k1-reko-x"
+  },
+  {
+    "id": "streamline-jet",
+    "name": "Jet",
+    "brand": "Streamline",
+    "flight_numbers": {
+      "speed": 11,
+      "glide": 5,
+      "turn": -3,
+      "fade": 2
+    },
+    "plastics": [],
+    "source": "https://streamlinediscs.com/discs/jet/"
+  },
+  {
+    "id": "mvp-trail",
+    "name": "Trail",
+    "brand": "MVP",
+    "flight_numbers": {
+      "speed": 10,
+      "glide": 5,
+      "turn": -1,
+      "fade": 1
+    },
+    "plastics": [],
+    "source": "https://mvpdiscsports.com/discs/trail/"
+  },
+  {
+    "id": "prodigy-f9",
+    "name": "F9",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 8,
+      "glide": 6,
+      "turn": -4,
+      "fade": 0.5
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-f5",
+    "name": "F5",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 8,
+      "glide": 6,
+      "turn": -2,
+      "fade": 1
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-f7",
+    "name": "F7",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 8,
+      "glide": 6,
+      "turn": -3,
+      "fade": 1
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-f3",
+    "name": "F3",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 8,
+      "glide": 5,
+      "turn": -2,
+      "fade": 2
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-fx-3",
+    "name": "FX-3",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 9,
+      "glide": 5,
+      "turn": -1,
+      "fade": 2
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-m4",
+    "name": "M4",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 5,
+      "glide": 5,
+      "turn": -1,
+      "fade": 1
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-pa-3",
+    "name": "PA-3",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 3,
+      "glide": 3,
+      "turn": 0,
+      "fade": 1
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "prodigy-d2",
+    "name": "D2",
+    "brand": "Prodigy",
+    "flight_numbers": {
+      "speed": 12,
+      "glide": 5,
+      "turn": 0,
+      "fade": 3
+    },
+    "plastics": [],
+    "source": "https://prodigydisc.com/"
+  },
+  {
+    "id": "innova-tl3",
+    "name": "TL3",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 8,
+      "glide": 4,
+      "turn": -1,
+      "fade": 1
+    },
+    "plastics": ["Star"],
+    "source": "https://proshop.innovadiscs.com/star-tl3/"
+  },
+  {
+    "id": "innova-roadrunner",
+    "name": "Roadrunner",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 9,
+      "glide": 5,
+      "turn": -4,
+      "fade": 1
+    },
+    "plastics": ["Star"],
+    "source": "https://proshop.innovadiscs.com/star-roadrunner/"
+  },
+  {
+    "id": "innova-beast",
+    "name": "Beast",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 10,
+      "glide": 5,
+      "turn": -2,
+      "fade": 2
+    },
+    "plastics": ["Star"],
+    "source": "https://proshop.innovadiscs.com/star-beast/"
+  },
+  {
+    "id": "innova-tern",
+    "name": "Tern",
+    "brand": "Innova",
+    "flight_numbers": {
+      "speed": 12,
+      "glide": 6,
+      "turn": -3,
+      "fade": 2
+    },
+    "plastics": ["Star"],
+    "source": "https://proshop.innovadiscs.com/star-tern/"
+  },
+  {
+    "id": "discraft-force",
+    "name": "Force",
+    "brand": "Discraft",
+    "flight_numbers": {
+      "speed": 12,
+      "glide": 5,
+      "turn": 0,
+      "fade": 3
+    },
+    "plastics": [],
+    "source": "https://www.team.discraft.com/discs/force"
+  }
+]

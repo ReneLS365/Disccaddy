@@ -1,0 +1,162 @@
+:root {
+  --lime-ink: #c4f275;
+  --amber-ink: #ffba76;
+  --cyan-ink: #70dfef;
+  --surface-deep: #0b2228;
+  --surface-bar: #10272e;
+  --selected: #263f2c;
+  --error: #ffc3aa;
+  --warning-bg: #423021;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #f3f7ed;
+    --panel: #ffffff;
+    --raised: #edf3e7;
+    --edge: #a8bba5;
+    --text: #172e23;
+    --muted: #435d4f;
+    --lime-ink: #365f0d;
+    --amber-ink: #874200;
+    --cyan-ink: #006578;
+    --surface-deep: #edf3e7;
+    --surface-bar: #f5f8f0;
+    --selected: #e1efcc;
+    --error: #9c280a;
+    --warning-bg: #fff0d8;
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f7ed;
+  --panel: #ffffff;
+  --raised: #edf3e7;
+  --edge: #a8bba5;
+  --text: #172e23;
+  --muted: #435d4f;
+  --lime-ink: #365f0d;
+  --amber-ink: #874200;
+  --cyan-ink: #006578;
+  --surface-deep: #edf3e7;
+  --surface-bar: #f5f8f0;
+  --selected: #e1efcc;
+  --error: #9c280a;
+  --warning-bg: #fff0d8;
+}
+.engine-badge.is-loading::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  vertical-align: -1px;
+  border: 2px solid var(--edge);
+  border-top-color: var(--lime-ink);
+  border-radius: 50%;
+  animation: engine-spin 900ms linear infinite;
+}
+@keyframes engine-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .engine-badge.is-loading::before {
+    animation: none;
+    border-style: dotted;
+  }
+}
+.round-card {
+  margin: 18px 0;
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--surface-deep);
+}
+.round-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 14px 0;
+}
+.round-cell {
+  min-width: 0;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 3px;
+  text-align: center;
+  border: 1px solid var(--edge);
+  border-radius: 9px;
+  background: var(--panel);
+  font-size: 11px;
+}
+.round-cell span {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.round-cell.hit {
+  border-color: var(--lime-ink);
+  color: var(--lime-ink);
+}
+.round-cell.miss {
+  border-color: var(--amber-ink);
+  color: var(--amber-ink);
+}
+.round-cell.pending {
+  color: var(--muted);
+}
+.round-score {
+  font-size: 13px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.streak {
+  color: var(--lime-ink);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.diagnostic-warnings {
+  background: var(--warning-bg);
+  border: 1px solid var(--amber-ink);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 12px 0;
+  color: var(--text);
+}
+.diagnostic-warnings h3 {
+  color: var(--amber-ink);
+}
+.diagnostic-warnings ul {
+  padding-left: 18px;
+  margin: 8px 0 0;
+}
+.diagnostic-warnings li {
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+:root[data-theme="light"] #compass circle {
+  fill: var(--panel);
+  stroke: var(--edge);
+}
+:root[data-theme="light"] #compass text {
+  fill: var(--text);
+}
+:root[data-theme="light"] #compassTicks line {
+  stroke: var(--muted);
+}
+:root[data-theme="light"] .toast {
+  background: #edf3e7;
+  border-color: #71925b;
+  color: var(--text);
+}
+:root[data-theme="light"] dialog::backdrop {
+  background: #243c2d88;
+}
+:root[data-theme="light"] .empty-disc {
+  color: #597d59;
+}
