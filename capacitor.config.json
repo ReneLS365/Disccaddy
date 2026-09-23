@@ -1,0 +1,6 @@
+{
+  "appId": "dk.discflightlab.app",
+  "appName": "Disc Flight Lab",
+  "webDir": "dist",
+  "backgroundColor": "#0b1c21"
+}

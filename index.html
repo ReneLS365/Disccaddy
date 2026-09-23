@@ -1,0 +1,1805 @@
+<!doctype html>
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+      name="viewport"
+    />
+    <meta content="#0b1c21" name="theme-color" />
+    <title>Disc Flight Lab V6.1 · 6-DOF · åbne aerodata</title>
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body data-app-version="3.0">
+    <header class="app-header">
+      <a aria-label="Disc Flight Lab, simulator" class="brand" href="#simulator"
+        ><span aria-hidden="true" class="brand-mark">◉</span
+        ><span>Disc <b>Flight Lab</b><small>V6.1 · MOBIL</small></span></a
+      >
+      <span class="save-status" id="saveStatus" role="status"
+        >Gemmes lokalt</span
+      >
+    </header>
+    <div id="computation" class="computation" hidden role="status">
+      <div>
+        <span id="computationText">Beregner…</span
+        ><progress id="computationProgress" max="1" value="0"></progress>
+      </div>
+      <button id="cancelComputation">Stop</button>
+    </div>
+    <main>
+      <section
+        aria-label="Kastsimulator"
+        class="view simulator"
+        data-pane="throw"
+        id="simulatorView"
+      >
+        <div aria-label="Simulatorens visninger" class="sim-tabs" role="group">
+          <button
+            aria-controls="discPane"
+            aria-pressed="false"
+            class="panel-tab"
+            data-panel="disc"
+          >
+            Disc</button
+          ><button
+            aria-controls="throwPane"
+            aria-pressed="true"
+            class="panel-tab active"
+            data-panel="throw"
+          >
+            Kast</button
+          ><button
+            aria-controls="windPane"
+            aria-pressed="false"
+            class="panel-tab"
+            data-panel="wind"
+          >
+            Vind</button
+          ><button
+            aria-controls="analysisPane"
+            aria-pressed="false"
+            class="panel-tab"
+            data-panel="analysis"
+          >
+            Analyse</button
+          ><button
+            aria-controls="flightPanel"
+            aria-pressed="false"
+            class="panel-tab flight-tab"
+            data-panel="flight"
+          >
+            Bane
+          </button>
+        </div>
+        <div class="sim-layout">
+          <aside aria-label="Kastindstillinger" class="setup" id="setup">
+            <div class="setup-scroll" id="setupScroll">
+              <section class="control-section" hidden="" id="discPane">
+                <div class="disc-pager">
+                  <button
+                    aria-label="Forrige disc"
+                    class="icon-button"
+                    id="previousDisc"
+                  >
+                    ‹</button
+                  ><button class="selected-disc" id="chooseDisc">
+                    <strong id="selectedDiscName">Distance driver</strong
+                    ><span id="selectedDiscNumbers">12 / 5 / −1 / 3</span
+                    ><small id="discPagerInfo">Vælg fra bag</small></button
+                  ><button
+                    aria-label="Næste disc"
+                    class="icon-button"
+                    id="nextDisc"
+                  >
+                    ›
+                  </button>
+                </div>
+                <div class="section-head">
+                  <h2>Disc til kastet</h2>
+                  <button class="text-button" id="openBag">Min bag →</button>
+                </div>
+                <label class="sr-only" for="discSelect" hidden=""
+                  >Disc fra din bag eller et eksempel</label
+                ><select hidden="" id="discSelect"></select>
+                <p class="hint" id="discInfo"></p>
+                <div class="numbers">
+                  <label
+                    >Speed<input
+                      id="speed"
+                      inputmode="decimal"
+                      max="15"
+                      min="1"
+                      step="0.5"
+                      type="number"
+                      value="12"
+                  /></label>
+                  <label
+                    >Glide<input
+                      id="glide"
+                      inputmode="decimal"
+                      max="7"
+                      min="0"
+                      step="0.5"
+                      type="number"
+                      value="5"
+                  /></label>
+                  <label
+                    >Turn<input
+                      id="turn"
+                      max="2"
+                      min="-5"
+                      step="0.5"
+                      type="number"
+                      value="-1"
+                  /></label>
+                  <label
+                    >Fade<input
+                      id="fade"
+                      inputmode="decimal"
+                      max="6"
+                      min="-2"
+                      step="0.5"
+                      type="number"
+                      value="3"
+                  /></label>
+                </div>
+                <button class="text-button small" id="saveCurrentDisc">
+                  Gem denne opsætning i bag
+                </button>
+                <button class="primary wide" id="addFromSimulator">
+                  ＋ Find og tilføj en disc
+                </button>
+              </section>
+              <section class="control-section" id="throwPane">
+                <button
+                  class="release-disc"
+                  data-open-panel="disc"
+                  id="releaseDisc"
+                >
+                  <span>VALGT DISC</span
+                  ><strong id="releaseDiscName">Distance driver</strong
+                  ><small>Skift ›</small>
+                </button>
+                <div class="section-head">
+                  <h2>Dit kast</h2>
+                  <span class="micro" id="cruise"></span>
+                </div>
+                <label class="sr-only" for="style">Kastemetode</label>
+                <select id="style">
+                  <option value="BH">Baghånd</option>
+                  <option value="FH">Forhånd</option>
+                </select>
+                <p class="hint" id="handHint"></p>
+                <div class="slider-head">
+                  <label for="powerPct">Kraft</label
+                  ><output for="powerPct" id="powerOut"></output>
+                </div>
+                <input
+                  id="powerPct"
+                  max="100"
+                  min="10"
+                  step="any"
+                  type="range"
+                  value="100"
+                />
+                <div class="ends">
+                  <span>10 %</span><span>100 % af dit maksimum</span>
+                </div>
+                <div
+                  aria-label="Hurtige udgangsvinkler"
+                  class="chips"
+                  id="anglePresets"
+                >
+                  <button class="active" data-angle="0">Fladt</button
+                  ><button data-angle="25">Hyzer</button
+                  ><button data-angle="20">Hyzerflip</button
+                  ><button data-angle="-20">Anhyzer</button>
+                </div>
+                <div class="slider-head">
+                  <label for="hyzer">Hyzer / anhyzer</label
+                  ><output for="hyzer" id="hyzerOut"></output>
+                </div>
+                <input
+                  id="hyzer"
+                  max="80"
+                  min="-80"
+                  step="1"
+                  type="range"
+                  value="0"
+                />
+                <div class="ends">
+                  <span>−80° anhyzer</span><span>+80° hyzer</span>
+                </div>
+                <div class="slider-head">
+                  <label for="nose">Nose angle</label
+                  ><output for="nose" id="noseOut"></output>
+                </div>
+                <input
+                  id="nose"
+                  max="15"
+                  min="-15"
+                  step="1"
+                  type="range"
+                  value="0"
+                />
+                <div class="ends">
+                  <span>−15° ned</span><span>+15° op</span>
+                </div>
+                <details class="physics-settings" open>
+                  <summary>Fysik &amp; releasekvalitet</summary>
+                  <label
+                    >Fysikmodel<select id="physicsModel">
+                      <option value="sixdof">
+                        V6 · koefficienttabeller · 6-DOF
+                      </option>
+                      <option value="sixdof-v5">V5 · tidligere 6-DOF</option>
+                      <option value="legacy">V4 · tidligere model</option>
+                    </select></label
+                  >
+                  <p id="physicsHint" class="hint"></p>
+                  <label
+                    >Aerodynamisk grundlag<select id="aeroPreset">
+                      <option value="auto">
+                        Automatisk · tilgængelige data
+                      </option>
+                      <option value="ss-cd1">Firebird · CFD-reference</option>
+                      <option value="ss-cd5">Roadrunner · CFD-reference</option>
+                      <option value="ss-dd2">Wraith · CFD-reference</option>
+                      <option value="ss-fd2">TeeBird · delvis CFD</option>
+                      <option value="genericPutter">Putter · estimat</option>
+                      <option value="genericMid">Midrange · estimat</option>
+                      <option value="genericDriver">Driver · estimat</option>
+                      <option value="hummel">Hummel · referencefrisbee</option>
+                      <option value="customTable">
+                        Importeret koefficienttabel
+                      </option>
+                      <option value="ratings">V5 · flighttal</option>
+                      <option value="documentMid">
+                        V5 · dokument putter/mid
+                      </option>
+                      <option value="documentDriver">
+                        V5 · dokument driver
+                      </option>
+                      <option value="custom">
+                        Tidligere egne koefficienter
+                      </option>
+                    </select>
+                    <p id="aeroStatus" class="data-status" role="status"></p
+                  ></label>
+                  <div class="form-grid">
+                    <label
+                      >Wobble ved release · °<input
+                        id="wobble"
+                        type="number"
+                        min="0"
+                        max="12"
+                        step="1"
+                        value="0" /></label
+                    ><label
+                      >Diameter · m (0 = auto)<input
+                        id="diameter"
+                        type="number"
+                        min="0"
+                        max=".3"
+                        step=".001"
+                        value="0" /></label
+                    ><label
+                      >Inertimoment · multiplikator<input
+                        id="inertiaScale"
+                        type="number"
+                        min=".5"
+                        max="1.5"
+                        step=".05"
+                        value="1" /></label
+                    ><label
+                      >Masse ved kanten · faktor<input
+                        id="inertiaFactor"
+                        type="number"
+                        min=".5"
+                        max="1"
+                        step=".05"
+                        value=".7"
+                    /></label>
+                  </div>
+                  <p class="hint">
+                    Inertimoment × 1 bruger profilens værdi. Diameter 0 bruger
+                    profilens størrelse. Wobble er vinklen mellem
+                    rotationshastigheden og discens normal. Ingen af delene er
+                    målt på din konkrete disc.
+                  </p>
+                </details>
+                <p class="hint" id="angleHint">
+                  Positiv hyzer hælder mod fade-siden.
+                </p>
+                <details>
+                  <summary>Spin, vægt og release</summary>
+                  <div class="form-grid">
+                    <label
+                      >Spin · rpm<input
+                        id="rpm"
+                        inputmode="decimal"
+                        max="1800"
+                        min="100"
+                        step="10"
+                        type="number"
+                        value="600"
+                    /></label>
+                    <label
+                      >Vægt · g<input
+                        id="weight"
+                        inputmode="numeric"
+                        max="200"
+                        min="100"
+                        step="1"
+                        type="number"
+                        value="175"
+                    /></label>
+                    <label
+                      >Højde · m<input
+                        id="height"
+                        inputmode="decimal"
+                        max="2.5"
+                        min="0.5"
+                        step="0.1"
+                        type="number"
+                        value="1.5"
+                    /></label>
+                    <label
+                      >Udgangsvinkel · °<input
+                        id="launch"
+                        inputmode="numeric"
+                        max="25"
+                        min="0"
+                        step="1"
+                        type="number"
+                        value="8"
+                    /></label>
+                  </div>
+                  <p class="hint">
+                    Nose angle ændrer discens hældning. Udgangsvinkel ændrer
+                    retningen på selve kastet.
+                  </p>
+                </details>
+              </section>
+              <section
+                class="control-section wind-section"
+                hidden=""
+                id="windPane"
+              >
+                <div class="section-head">
+                  <h2>Vind &amp; retning</h2>
+                  <button class="text-button" id="calm">Vindstille</button>
+                </div>
+                <div class="slider-head">
+                  <label for="windSpeed">Vindstyrke</label
+                  ><output for="windSpeed" id="windSpeedOut"></output>
+                </div>
+                <input
+                  id="windSpeed"
+                  max="15"
+                  min="0"
+                  step="0.5"
+                  type="range"
+                  value="0"
+                />
+                <div
+                  aria-label="Hvad vil du justere?"
+                  class="compass-mode"
+                  role="group"
+                >
+                  <button aria-pressed="true" class="active" id="windMode">
+                    ● Vind fra</button
+                  ><button aria-pressed="false" id="aimMode">↑ Kast mod</button>
+                </div>
+                <div class="compass-wrap">
+                  <svg
+                    aria-label="Vind fra, grader med uret fra nord"
+                    aria-valuemax="359"
+                    aria-valuemin="0"
+                    aria-valuenow="0"
+                    id="compass"
+                    role="slider"
+                    tabindex="0"
+                    viewbox="0 0 280 280"
+                  >
+                    <defs>
+                      <marker
+                        id="windHead"
+                        markerheight="8"
+                        markerunits="strokeWidth"
+                        markerwidth="8"
+                        orient="auto"
+                        refx="6"
+                        refy="3"
+                      >
+                        <path d="M0,0 L6,3 L0,6 Z" fill="#ffba76"></path>
+                      </marker>
+                      <marker
+                        id="aimHead"
+                        markerheight="6"
+                        markerunits="strokeWidth"
+                        markerwidth="6"
+                        orient="auto"
+                        refx="5"
+                        refy="3"
+                      >
+                        <path d="M0,0 L5,3 L0,6 Z" fill="#c4f275"></path>
+                      </marker>
+                    </defs>
+                    <circle
+                      cx="140"
+                      cy="140"
+                      fill="#102a30"
+                      r="109"
+                      stroke="#315057"
+                    ></circle>
+                    <circle
+                      cx="140"
+                      cy="140"
+                      fill="none"
+                      r="73"
+                      stroke="#234048"
+                      stroke-dasharray="3 7"
+                    ></circle>
+                    <path
+                      d="M140 35V245M35 140H245"
+                      stroke="#29464e"
+                      stroke-dasharray="2 5"
+                    ></path>
+                    <g id="compassTicks" stroke="#527078"></g>
+                    <g
+                      fill="#aec2c5"
+                      font-family="system-ui"
+                      font-size="13"
+                      text-anchor="middle"
+                    >
+                      <text x="140" y="19">N</text>
+                      <text x="266" y="145">Ø</text>
+                      <text x="140" y="273">S</text>
+                      <text x="14" y="145">V</text>
+                    </g>
+                    <g id="aimArrow">
+                      <path
+                        d="M140 179L140 74"
+                        marker-end="url(#aimHead)"
+                        stroke="#c4f275"
+                        stroke-width="3"
+                      ></path>
+                      <circle cx="140" cy="140" fill="#c4f275" r="5"></circle>
+                    </g>
+                    <g id="windArrow">
+                      <path
+                        d="M140 52L140 221"
+                        marker-end="url(#windHead)"
+                        stroke="#ffba76"
+                        stroke-width="5"
+                      ></path>
+                      <circle
+                        cx="140"
+                        cy="52"
+                        fill="#ffba76"
+                        r="9"
+                        stroke="#0b1c21"
+                        stroke-width="3"
+                      ></circle>
+                    </g>
+                  </svg>
+                  <p class="compass-reading" id="windReading"></p>
+                </div>
+                <div class="form-grid">
+                  <label class="amber"
+                    >Vind fra · °<input
+                      id="windFrom"
+                      inputmode="numeric"
+                      max="359"
+                      min="0"
+                      step="1"
+                      type="number"
+                      value="0" /></label
+                  ><label class="lime"
+                    >Kast mod · °<input
+                      id="aim"
+                      inputmode="numeric"
+                      max="359"
+                      min="0"
+                      step="1"
+                      type="number"
+                      value="0"
+                  /></label>
+                </div>
+                <p class="wind-components" id="windComponents"></p>
+                <details>
+                  <summary>Luft &amp; højde over havet</summary>
+                  <div class="form-grid">
+                    <label
+                      >Temperatur · °C<input
+                        id="temperature"
+                        type="number"
+                        min="-15"
+                        max="45"
+                        step="1"
+                        value="15" /></label
+                    ><label
+                      >Højde over havet · m<input
+                        id="altitude"
+                        type="number"
+                        min="0"
+                        max="4000"
+                        step="10"
+                        value="0" /></label
+                    ><label
+                      >Relativ fugtighed · %<input
+                        id="humidity"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="5"
+                        value="0"
+                    /></label>
+                  </div>
+                  <p class="hint">
+                    Beregnet luftdensitet: <strong id="densityOut"></strong>.
+                    Lufttryk følger standardatmosfæren; værdierne indstilles
+                    manuelt.
+                  </p>
+                </details>
+                <details class="wind-help">
+                  <summary>Sådan læses pilene</summary>
+                  <p>
+                    Prikken viser, hvor vinden kommer fra. Orange pil viser,
+                    hvor den blæser hen. Grøn pil viser dit kast. Du indstiller
+                    selv vind og retning; appen læser ikke telefonens kompas.
+                  </p>
+                </details>
+              </section>
+              <section
+                class="control-section lab-pane"
+                hidden
+                id="analysisPane"
+              >
+                <div class="section-head">
+                  <h2>Mål &amp; kastanalyse</h2>
+                  <span class="micro">V6 · 6-DOF</span>
+                </div>
+                <p class="hint">
+                  Vælg et mål og undersøg kastets følsomhed. Afstande gælder
+                  første kontakt med fladt terræn.
+                </p>
+                <div class="form-grid">
+                  <label
+                    >Afstand frem · m<input
+                      id="targetDistance"
+                      type="number"
+                      min="5"
+                      max="250"
+                      step="1"
+                      value="80" /></label
+                  ><label
+                    >Sideværts · m<input
+                      id="targetLateral"
+                      type="number"
+                      min="-100"
+                      max="100"
+                      step="1"
+                      value="0" /></label
+                  ><label
+                    >Målzone · radius i m<input
+                      id="targetRadius"
+                      type="number"
+                      min="1"
+                      max="30"
+                      step="1"
+                      value="5"
+                  /></label>
+                </div>
+                <p class="hint">
+                  Positiv sideafstand er til højre for sigtelinjen. Cirklen er
+                  en målzone, ikke en kurv.
+                </p>
+                <div class="lab-current" id="targetSummary" role="status">
+                  Beregn et kast for at se afstanden til målet.
+                </div>
+                <section class="round-card" aria-labelledby="roundTitle">
+                  <div class="section-head">
+                    <h2 id="roundTitle">Runde · 8 kast</h2>
+                    <span id="roundStreak" class="streak" role="status"
+                      >0 i træk</span
+                    >
+                  </div>
+                  <p class="hint">
+                    Ram målzonen med otte simulerede kast. Releasevariationerne
+                    følger dine analyseindstillinger. Målet og indstillingerne
+                    låses for runden.
+                  </p>
+                  <p id="roundTarget" class="hint"></p>
+                  <div
+                    id="roundGrid"
+                    class="round-grid"
+                    aria-label="Rundens otte kast"
+                  ></div>
+                  <p id="roundScore" class="round-score" role="status">
+                    Klar til en runde.
+                  </p>
+                  <p id="roundBest" class="hint"></p>
+                  <div class="button-row">
+                    <button id="startRound" class="primary" type="button">
+                      Start runde</button
+                    ><button id="roundThrow" type="button" disabled>
+                      Kast 1 / 8
+                    </button>
+                  </div>
+                  <p id="roundError" class="error" role="alert" hidden></p>
+                </section>
+                <section
+                  id="diagnosticWarnings"
+                  class="diagnostic-warnings"
+                  aria-label="Modellens forbehold"
+                  hidden
+                ></section>
+                <button id="suggestThrows" class="primary wide">
+                  Find kast til målet
+                </button>
+                <p class="hint">
+                  Afprøver op til seks discs, tre kraftniveauer og tre
+                  hyzervinkler. De bedste forslag kontrolleres med otte
+                  releasevariationer og sorteres efter største afvigelse. Nose,
+                  spin og vind tager udgangspunkt i dit valgte kast. Discs med
+                  samme basisprofil er ikke aerodynamisk kortlagt hver for sig.
+                </p>
+                <div id="throwSuggestions"></div>
+                <details open>
+                  <summary>Variation fra kast til kast</summary>
+                  <div class="form-grid">
+                    <label
+                      >Kraft · ± procentpoint<input
+                        id="spreadPower"
+                        type="number"
+                        min="0"
+                        max="15"
+                        step="1"
+                        value="3"
+                    /></label>
+                    <label
+                      >Hyzer og nose · ± °<input
+                        id="spreadAngle"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step=".5"
+                        value="2"
+                    /></label>
+                    <label
+                      >Spin · ± %<input
+                        id="spreadSpin"
+                        type="number"
+                        min="0"
+                        max="30"
+                        step="1"
+                        value="8"
+                    /></label>
+                    <label
+                      >Vindkomponenter · ± m/s<input
+                        id="spreadWind"
+                        type="number"
+                        min="0"
+                        max="5"
+                        step=".1"
+                        value=".5"
+                    /></label>
+                    <label
+                      >Udgangsvinkel · ± °<input
+                        id="spreadLaunch"
+                        type="number"
+                        min="0"
+                        max="5"
+                        step=".5"
+                        value="1"
+                    /></label>
+                    <label
+                      >Sigteretning · ± °<input
+                        id="spreadAim"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step=".5"
+                        value="1"
+                    /></label>
+                    <label
+                      >Koefficientvariation · % af testinterval<input
+                        id="spreadAero"
+                        type="number"
+                        min="0"
+                        max="200"
+                        step="10"
+                        value="100"
+                    /></label>
+                  </div>
+
+                  <button id="runSensitivity" class="wide">
+                    Test release og koefficienter
+                  </button>
+                  <p class="hint">
+                    32 blå releasepunkter og, med V6, 16 orange
+                    koefficientpunkter. Ved 100 % afprøves løft ±15 %, modstand
+                    ±20 %, pitch-offset ±0,015, spinmodstand ±30 % og
+                    rulle/pitchdæmpning ±50 %. Det er valgte testintervaller; de
+                    er ikke målte fejlmarginer. Sæt 0 for at fastholde en
+                    størrelse.
+                  </p>
+                  <svg
+                    id="dispersionPlot"
+                    hidden
+                    viewBox="0 0 420 280"
+                    role="img"
+                    aria-label="Blå cirkler viser releasevariation; orange firkanter viser koefficientvariation"
+                  ></svg>
+                  <p id="sensitivitySummary" class="hint" role="status"></p>
+                </details>
+                <details>
+                  <summary>Discens aeroprofil og justeringer</summary>
+                  <p id="coefficientSummary" class="hint"></p>
+                  <button id="editCoefficients" class="wide">
+                    Se koefficienttabeller og kilde
+                  </button>
+                  <div class="form-grid">
+                    <label
+                      >Løft · multiplikator<input
+                        id="liftScale"
+                        type="number"
+                        min=".5"
+                        max="1.5"
+                        step=".05"
+                        value="1"
+                    /></label>
+                    <label
+                      >Modstand · multiplikator<input
+                        id="dragScale"
+                        type="number"
+                        min=".5"
+                        max="1.8"
+                        step=".05"
+                        value="1"
+                    /></label>
+                    <label
+                      >Pitchmoment · offset<input
+                        id="momentOffset"
+                        type="number"
+                        min="-.06"
+                        max=".06"
+                        step=".002"
+                        value="0"
+                    /></label>
+                    <label
+                      >Spinmodstand · multiplikator<input
+                        id="spinDragScale"
+                        type="number"
+                        min="0"
+                        max="3"
+                        step=".1"
+                        value="1"
+                    /></label>
+                    <label
+                      >Rulle/pitchdæmpning · multiplikator<input
+                        id="rateDampingScale"
+                        type="number"
+                        min="0"
+                        max="3"
+                        step=".1"
+                        value="1"
+                    /></label>
+                  </div>
+                  <p class="hint">
+                    Justér én ting ad gangen efter gentagne erfaringer med
+                    discen. Et negativt pitch-offset giver mere
+                    nose-down-moment. Højere modstand bremser mere; højere
+                    spinmodstand taber spin hurtigere. En sådan justering er
+                    stadig et estimat. Gem på discen for at bevare den ved
+                    discskift.
+                  </p>
+                  <div class="button-row">
+                    <button id="saveAeroDisc">Gem på discen</button
+                    ><button id="resetAero">Nulstil justering</button>
+                  </div>
+                  <div class="button-row">
+                    <button id="importCoefficients">
+                      Importér koefficienter</button
+                    ><button id="exportCoefficients">
+                      Eksportér basisprofil
+                    </button>
+                  </div>
+                  <input
+                    id="coefficientFile"
+                    type="file"
+                    accept=".json,application/json"
+                    hidden
+                  />
+                  <p class="hint">
+                    Basiseksport indeholder originaltabellen. Egne
+                    multiplikatorer, bag og gemte kast følger med den fulde
+                    backup under Profil.
+                  </p>
+                </details>
+                <details>
+                  <summary>Se kastets data</summary>
+                  <label
+                    >Kurve<select id="telemetryMetric">
+                      <option value="height">Højde · m</option>
+                      <option value="airspeed">Lufthastighed · m/s</option>
+                      <option value="spin">Spin · rpm</option>
+                      <option value="alpha">Angrebsvinkel · °</option>
+                      <option value="advanceRatio">
+                        Signeret spin/fart-forhold · ωR/U
+                      </option>
+                    </select></label
+                  ><svg
+                    id="telemetryChart"
+                    viewBox="0 0 420 200"
+                    role="img"
+                    aria-label="Kastets beregnede data over tid"
+                  ></svg>
+                  <p id="modelQuality" class="hint"></p>
+                  <div class="button-row">
+                    <button id="exportCSV">Eksportér beregnede punkter</button
+                    ><button id="exportFlightSVG">Gem banediagram</button>
+                  </div>
+                </details>
+                <details>
+                  <summary>Hvad bygger beregningen på?</summary>
+                  <p class="hint">
+                    V6 beregner position, hastighed, fuld orientering og
+                    rotationsmoment med adaptiv RK45. Flighttal bruges som
+                    metadata og ved afspilning af tidligere modeller. De
+                    omregnes ikke til aerokoefficienter i V6.
+                  </p>
+                  <p class="hint">
+                    Firebird, Roadrunner og Wraith har åbne statiske
+                    CFD-tabeller. TeeBird-tabellen har delvist lånte
+                    yderpunkter. Automatisk valg bruger en direkte profil ved
+                    modelmatch; øvrige discs får en generisk familie ud fra
+                    oplyst disctype eller PDGA-mål. Plast, dome,
+                    produktionsserie og slid har ingen målte individuelle
+                    korrektioner her.
+                  </p>
+                  <p class="hint">
+                    CL, CD og CM interpoleres i angrebsvinkel. Vinkelintervallet
+                    −10 til 20° bruges til kontrolflag for de indbyggede
+                    profiler; hele tabellen bruges i beregningen. En importeret
+                    tabel kan også have en signeret spin/fart-akse samt CRoll og
+                    CSpin. Uden disse data bruges roterende disc-referencer til
+                    dæmpning og en antaget spinmodstand. Standardværdierne er
+                    Cmq = −1,4, Clp = −1,3 og CSpin = −0,00265 × ωR/U. De er
+                    ikke målt på din golfdisc.
+                  </p>
+                  <p class="hint">
+                    Modellen antager en stiv, rotationssymmetrisk disc og
+                    konstant vind gennem hvert kast. Sidekraft fra
+                    Magnus-effekt, turbulens, træer, skips, rul og
+                    terrænhældning indgår ikke. Stopkriteriet er discens centrum
+                    ved jordniveau. Resultatet er et flyveestimat, ikke en
+                    nøjagtig real-world-gengivelse.
+                  </p>
+                  <p class="hint">
+                    Numerisk stabilitet er ikke målt præcision i virkeligheden.
+                    V6.1 er ikke kalibreret til dit individuelle kast. Se
+                    testbeskrivelsen i projektets README.
+                  </p>
+                  <div class="source-list">
+                    <a
+                      href="https://github.com/kegiljarhus/shotshaper"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Shotshaper · åbne tabeller og forsøgsbaner ↗</a
+                    >
+                    <a
+                      href="https://link.springer.com/article/10.1007/s12283-022-00390-5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Fagfællebedømt CFD-studie · 2022 ↗</a
+                    >
+                    <a
+                      href="https://www.researchgate.net/publication/225330184_Simulation_of_a_spinstabilised_sports_disc"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Crowther &amp; Potts · 2007 · roterende disc-model ↗</a
+                    >
+                    <a
+                      href="https://research.engineering.ucdavis.edu/biosport/sample-page/test-page-1/frisbee-flight-simulation-and-throw-biomechanics/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Hummel · 2003 · frisbee-reference ↗</a
+                    >
+                    <a
+                      href="https://www.pdga.com/technical-standards/equipment-certification/discs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >PDGA · godkendte discmål ↗</a
+                    >
+                  </div>
+                  <p class="hint">
+                    Datapakke hentet 19. september 2026. Originale
+                    datarevisioner er gemt som SHA-256 ved hver profil.
+                    Shotshaper-tabellerne er omlagt til appens JSON-format;
+                    oprindelige CL/CD/CM-værdier er bevaret.
+                  </p>
+                  <details>
+                    <summary>Shotshaper · kilde og GPLv3-licens</summary>
+                    <p class="hint">
+                      Tabeller: Shotshaper-projektets bidragydere.
+                      Forfatterangivelse og ophavsret fremgår af repository og
+                      artikel. GPLv3-licensen følger her. Datatilpasning og
+                      motor findes i projektets src-mappe.
+                    </p>
+                    <p>
+                      <a
+                        href="./licenses/Shotshaper-GPL-3.0.txt"
+                        target="_blank"
+                        rel="noopener"
+                        >Læs GPLv3-licensen</a
+                      >
+                    </p>
+                  </details>
+                </details>
+              </section>
+              <section class="control-section saved-throws">
+                <h2>Gemte kast <span id="savedCount">0 / 3</span></h2>
+                <p class="hint">
+                  Gem disc, metode, profil og alle indstillinger. Ændringer i
+                  din bag påvirker ikke gemte kast.
+                </p>
+                <div class="button-row">
+                  <button id="captureThrow">＋ Gem dette kast</button
+                  ><button id="showSaved">Vis sammenligning</button>
+                </div>
+                <label class="check-line"
+                  ><input id="commonWind" type="checkbox" checked /> Samme vind
+                  fra Vind-fanen</label
+                >
+                <div id="savedThrows"></div>
+              </section>
+            </div>
+            <div class="throw-dock">
+              <button class="primary" id="simulate">
+                Simulér kast <span>↗</span></button
+              ><button
+                id="compare"
+                title="Sammenlign hyzer, fladt kast og anhyzer"
+              >
+                Sammenlign vinkler
+              </button>
+            </div>
+          </aside>
+          <section
+            aria-label="Kastets flyvebane"
+            class="flight-panel"
+            id="flightPanel"
+          >
+            <div class="flight-toolbar">
+              <button
+                class="text-button"
+                data-open-panel="throw"
+                id="editThrow"
+              >
+                ‹ Ret kast</button
+              ><span
+                class="engine-badge is-loading"
+                aria-busy="true"
+                role="status"
+                id="engineStatus"
+                >2D · indlæser 3D…</span
+              ><button
+                aria-label="Udvid visualiseringen"
+                aria-pressed="false"
+                class="icon-button"
+                id="expand"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 9V4h5m6 0h5v5M20 15v5h-5M9 20H4v-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg></button
+              ><button
+                aria-label="Beregn nyt kast"
+                class="icon-button"
+                id="rerun"
+              >
+                ↻
+              </button>
+            </div>
+            <div class="hud">
+              <div>
+                <small>DISTANCE</small>
+                <p><output id="distanceOut">0,0</output><span> m</span></p>
+              </div>
+              <div>
+                <small>HØJDE</small>
+                <p><output id="heightOut">1,5</output><span> m</span></p>
+              </div>
+              <div>
+                <small>LUFTHASTIGHED</small>
+                <p><output id="airOut">27,0</output><span> m/s</span></p>
+                <small id="groundSpeed"></small>
+              </div>
+            </div>
+            <div aria-label="Visualisering af kast" class="stage" id="stage">
+              <div aria-label="3D-flyvebane" id="world"></div>
+              <canvas aria-label="Flyvebane set ovenfra" id="fallback"></canvas>
+            </div>
+            <div aria-label="Kameravinkel" class="view-modes" role="group">
+              <button aria-pressed="true" class="active" data-camera="overview">
+                Overblik</button
+              ><button aria-pressed="false" data-camera="follow">
+                Følg disc</button
+              ><button aria-pressed="false" data-camera="top">Ovenfra</button
+              ><button aria-pressed="false" data-camera="side">
+                Fra siden
+              </button>
+            </div>
+            <div class="stale" hidden="" id="stale" role="status">
+              Indstillinger ændret. Tryk ↻ for at beregne igen.
+            </div>
+            <div class="flight-summary" id="flightSummary"></div>
+            <div class="telemetry-strip">
+              <div><small>AOA · °</small><strong id="liveAlpha">—</strong></div>
+              <div>
+                <small>SPIN · RPM</small><strong id="liveSpin">—</strong>
+              </div>
+              <div><small>LIFT · N</small><strong id="liveLift">—</strong></div>
+              <div><small>DRAG · N</small><strong id="liveDrag">—</strong></div>
+            </div>
+            <div class="comparison" hidden="" id="comparison"></div>
+            <div class="flight-legend">
+              <span><i class="turn-dot"></i>Turn</span
+              ><span><i class="glide-dot"></i>Glide</span
+              ><span><i class="fade-dot"></i>Fade</span
+              ><span>Modelestimat</span>
+            </div>
+            <div class="playbar">
+              <button aria-label="Start afspilning" id="play">Afspil</button>
+              <div>
+                <div class="timeline-label">
+                  <span id="phase">Klar</span
+                  ><output id="time">0,00 / 0,00 s</output>
+                </div>
+                <input
+                  aria-label="Tid i kastet"
+                  id="seek"
+                  max="1"
+                  min="0"
+                  step="any"
+                  type="range"
+                  value="0"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section
+        aria-labelledby="bagTitle"
+        class="view bag-view"
+        hidden=""
+        id="bagView"
+      >
+        <div class="page-heading">
+          <div>
+            <h1 id="bagTitle">Min bag<span class="lime">.</span></h1>
+            <p class="subhead">Tryk på en disc for detaljer.</p>
+          </div>
+          <button class="primary" id="addDisc">＋ Tilføj</button>
+        </div>
+        <div class="bag-tools">
+          <button id="bagImport" class="bag-import">
+            Indlæs discliste / CSV</button
+          ><label class="search-label"
+            ><span class="sr-only">Søg i min bag</span
+            ><input
+              id="bagSearch"
+              placeholder="Søg disc, mærke eller plast…"
+              type="search" /></label
+          ><label
+            ><span class="sr-only">Disc-type</span
+            ><select id="bagFilter">
+              <option value="all">Alle discs</option>
+              <option value="favorites">★ Favoritter</option>
+              <option value="putter">Putter</option>
+              <option value="midrange">Midrange</option>
+              <option value="fairway">Fairway</option>
+              <option value="distance">Distance</option>
+            </select></label
+          ><label
+            ><span class="sr-only">Sortér bag</span
+            ><select id="bagSort">
+              <option value="speed">Speed · lav til høj</option>
+              <option value="name">Navn · A–Å</option>
+              <option value="brand">Mærke · A–Å</option>
+              <option value="recent">Senest tilføjet</option>
+            </select></label
+          >
+        </div>
+        <div class="bag-list-caption">
+          <span id="bagResultCount">0 discs</span
+          ><button class="text-button" hidden="" id="clearBagFilters">
+            Nulstil filtre
+          </button>
+        </div>
+        <div class="bag-scroll" id="bagScroll">
+          <div class="bag-grid" id="bagGrid"></div>
+          <div class="empty-state" id="bagEmpty">
+            <div aria-hidden="true" class="empty-disc">◎</div>
+            <h2>Din bag starter her.</h2>
+            <p>
+              Tilføj din første disc med dens flight numbers.<br />Gem vægt,
+              plast og dine egne noter.
+            </p>
+            <button class="primary" id="addFirstDisc">
+              Tilføj min første disc
+            </button>
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="profileTitle"
+        class="view page-view"
+        hidden=""
+        id="profileView"
+      >
+        <div class="page-inner profile-inner">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">DIT UDGANGSPUNKT</span>
+              <h1 id="profileTitle">
+                Spillerprofil<span class="lime">.</span>
+              </h1>
+              <p class="subhead">
+                Gem dine typiske releaseværdier til hurtige kast.
+              </p>
+            </div>
+            <span class="local-pill">På denne enhed</span>
+          </div>
+          <section class="profile-card">
+            <h2>Udseende &amp; offline</h2>
+            <label
+              >Tema<select id="themeSelect">
+                <option value="system">Følg enheden</option>
+                <option value="light">Lyst · udendørs</option>
+                <option value="dark">Mørkt</option>
+              </select></label
+            >
+            <p class="hint" id="offlineStatus" role="status">
+              Forbereder offlinebrug…
+            </p>
+            <button id="installApp" hidden>Installér app</button>
+          </section>
+          <form class="profile-card" id="profileForm">
+            <div class="form-grid">
+              <label
+                >Navn<input
+                  autocomplete="nickname"
+                  id="profileName"
+                  maxlength="60"
+                  required=""
+                  type="text" /></label
+              ><label
+                >Foretrukken hånd<select id="profileHand">
+                  <option value="R">Højre</option>
+                  <option value="L">Venstre</option>
+                </select></label
+              >
+            </div>
+            <label
+              >Niveau · justerbare startværdier<select id="profileLevel">
+                <option value="custom">Egne værdier</option>
+                <option value="beginner">Nybegynder</option>
+                <option value="casual">Let øvet</option>
+                <option value="advanced">Øvet</option>
+                <option value="expert">Erfaren</option>
+              </select></label
+            ><button type="button" id="applyLevel">
+              Brug niveauets startværdier
+            </button>
+            <p class="hint">
+              Et niveau er kun et udgangspunkt. Justér baghånd og forhånd hver
+              for sig.
+            </p>
+            <div class="method-grid">
+              <div>
+                <h2>Baghånd</h2>
+                <label
+                  >Maksimum · m/s<input
+                    id="bhPower"
+                    inputmode="decimal"
+                    max="50"
+                    min="5"
+                    required=""
+                    step="0.5"
+                    type="number" /></label
+                ><label
+                  >Typisk spin · rpm<input
+                    id="bhRpm"
+                    inputmode="decimal"
+                    max="1800"
+                    min="100"
+                    required=""
+                    step="10"
+                    type="number"
+                /></label>
+              </div>
+              <div>
+                <h2>Forhånd</h2>
+                <label
+                  >Maksimum · m/s<input
+                    id="fhPower"
+                    inputmode="decimal"
+                    max="50"
+                    min="5"
+                    required=""
+                    step="0.5"
+                    type="number" /></label
+                ><label
+                  >Typisk spin · rpm<input
+                    id="fhRpm"
+                    inputmode="decimal"
+                    max="1800"
+                    min="100"
+                    required=""
+                    step="10"
+                    type="number"
+                /></label>
+              </div>
+            </div>
+            <div class="form-grid three">
+              <label
+                >Releasehøjde · m<input
+                  id="profileHeight"
+                  inputmode="decimal"
+                  max="2.5"
+                  min="0.5"
+                  required=""
+                  step="0.1"
+                  type="number" /></label
+              ><label
+                >Udgangsvinkel · °<input
+                  id="profileLaunch"
+                  inputmode="numeric"
+                  max="25"
+                  min="0"
+                  required=""
+                  step="1"
+                  type="number" /></label
+              ><label
+                >Nose angle · °<input
+                  id="profileNose"
+                  max="15"
+                  min="-15"
+                  required=""
+                  step="1"
+                  type="number"
+              /></label>
+            </div>
+            <label
+              >Mine noter<textarea
+                id="profileNotes"
+                maxlength="1000"
+                placeholder="Fx hvad der fungerer i modvind, eller hvordan dine discs flyver."
+                rows="3"
+              ></textarea>
+            </label>
+            <p class="hint">
+              Startværdierne er eksempler. Tilpas dem efter dine egne kast.
+              Profilen bliver ikke automatisk kalibreret ud fra din kastelængde.
+            </p>
+            <button class="primary" type="submit">
+              Gem profil &amp; brug værdier
+            </button>
+          </form>
+          <section class="profile-card backup-card">
+            <h2>Indlæs din discbeholdning</h2>
+            <p>
+              Dine to vedhæftede Discmate-lister er indbygget. Den tjekkede
+              liste er valgt. Gennemse discs før import; eksisterende varianter
+              og den tidligere mistede Patrol er fravalgt fra start.
+            </p>
+            <label>Vedhæftet liste<select id="attachedList"></select></label>
+            <div class="button-row">
+              <button id="reviewAttached">Gennemse og tilføj</button
+              ><button id="csvImport">Importér anden CSV</button>
+            </div>
+            <input id="csvFile" type="file" accept=".csv,text/csv" hidden />
+            <p>
+              Billeder via URL kræver internet. Ukendt vægt bruger 175 g som
+              modelværdi, indtil du ændrer den.
+            </p>
+          </section>
+
+          <section class="profile-card backup-card">
+            <div>
+              <h2>Tag din bag med.</h2>
+              <p>
+                Eksportér profil, bag, tre gemte kast, runderekorder og
+                uploadede billeder i en JSON-backup. Importér den på en anden
+                enhed. Ingen konto eller automatisk synkronisering.
+              </p>
+            </div>
+            <div class="button-row">
+              <button id="exportData">↓ Eksportér backup</button
+              ><button id="importData">↑ Importér backup</button>
+            </div>
+            <input
+              accept=".json,application/json"
+              hidden=""
+              id="importFile"
+              type="file"
+            />
+          </section>
+          <p class="footnote" id="storageNote">
+            Gemmes automatisk lokalt. Hvis browserdata slettes, slettes den
+            lokale bag også.
+          </p>
+          <section class="profile-card">
+            <h2>Disckatalog</h2>
+            <p class="hint" id="catalogStatus"></p>
+            <button id="refreshCatalog">↻ Opdatér fra DiscIt</button
+            ><button class="wide" id="importCatalog">
+              Indlæs katalog (.json)
+            </button>
+            <p class="hint">
+              Kataloget er indbygget og kan bruges offline. Tilføj flere
+              modeller fra en JSON-fil. Dine egne discs ændres ikke af et
+              katalogimport.
+            </p>
+          </section>
+          <details class="model-note">
+            <summary>Om modellen og dens begrænsninger</summary>
+            <p>
+              6-DOF integrerer translation og fuld orientering med quaternioner,
+              impulsmoment og adaptiv Runge–Kutta 5(4). Lift, drag og momenter
+              beregnes fra den relative luftstrøm. Turn og fade opstår ved tilt
+              og præcession; der tilføjes ingen kunstig sidekraft.
+            </p>
+            <p>
+              Flighttal er relative producentvurderinger. Omsætningen til
+              aerodynamiske koefficienter, golfdiscens inertimomenter og
+              fortsættelsen ved store angrebsvinkler er estimater.
+              Hummel-reference og dokumentets golfsæt kan vælges separat. Skift
+              af model kan derfor ændre den beregnede kastelængde markant.
+            </p>
+            <p>
+              Jordkontakt tilnærmes ved, at discens center når jordplanet. Ingen
+              skips, rul, træer eller kurvekollisioner. Vind og atmosfære
+              indtastes manuelt. En målzone er et geometrisk område;
+              følsomhedsanalysen er ikke en personlig træfsandsynlighed.
+            </p>
+            <p>
+              V2- og V4-backups kan importeres. Ældre gemte kast beholder
+              V4-motoren; nye kast bruger 6-DOF. Nye backups indeholder
+              koefficienter, mål, atmosfære, profil, bag og billeder.
+            </p>
+            <p>
+              Appen og kataloget kan bruges offline. Billed-URL’er og
+              katalogopdatering kræver net. De tunge beregninger kører i
+              baggrunden, hvor browseren understøtter det.
+            </p>
+            <p>
+              Kilde:
+              <a
+                href="https://morleyfielddgc.wordpress.com/wp-content/uploads/2009/04/hummelthesis.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Hummel 2003, Appendix A/B</a
+              >. De estimerede golfbaselines er fra dit 6-DOF-dokument.
+            </p>
+          </details>
+          <p class="footnote">
+            Version 6.1 · Layout fra 320 px. 3D kræver WebGL2; ellers vises
+            samme kast i 2D.
+          </p>
+        </div>
+      </section>
+    </main>
+    <div class="toast" hidden="" id="toast" role="status">
+      <span id="toastText"></span><button hidden="" id="undo">Fortryd</button
+      ><button aria-label="Luk besked" class="icon-button" id="dismissToast">
+        ×
+      </button>
+    </div>
+    <nav aria-label="Hovedmenu" class="app-nav">
+      <button aria-current="page" class="nav active" data-view="simulator">
+        ↗ Kast</button
+      ><button class="nav" data-view="bag">
+        Min bag <span class="count" id="bagCount">0</span></button
+      ><button class="nav" data-view="profile">◎ Profil</button>
+    </nav>
+    <dialog id="coeffDialog" aria-labelledby="coefficientTitle">
+      <div class="dialog-head">
+        <h2 id="coefficientTitle">Koefficientprofil</h2>
+        <button
+          class="icon-button"
+          data-close="coeffDialog"
+          aria-label="Luk koefficientprofil"
+        >
+          ×
+        </button>
+      </div>
+      <div class="aero-dialog-scroll">
+        <div id="aeroSource"></div>
+        <p class="hint">
+          Tabellen viser basisværdier før dine justeringer. — betyder, at data
+          mangler; motoren bruger da den beskrevne antagelse.
+        </p>
+        <label
+          >Signeret spin/fart-forhold · ωR/U<select
+            id="coefficientLambda"
+          ></select
+        ></label>
+        <div class="table-scroll">
+          <table class="aero-table">
+            <thead>
+              <tr>
+                <th scope="col">α · °</th>
+                <th scope="col">CL</th>
+                <th scope="col">CD</th>
+                <th scope="col">CM</th>
+                <th scope="col">CRoll</th>
+                <th scope="col">CSpin</th>
+              </tr>
+            </thead>
+            <tbody id="coefficientRows"></tbody>
+          </table>
+        </div>
+        <p class="hint">
+          Kraft = ½ρU² × S × C. Alle momenter = ½ρU² × S × diameter × C, om
+          massemidtpunktet. Tabelvinkler er i grader; Jax og Jtrans i eksporten
+          er I/masse i m². Pitchmoment virker om højreaksen, rullemoment om
+          fremadaksen og spinmoment om discens topnormal.
+        </p>
+      </div>
+    </dialog>
+    <dialog aria-labelledby="detailTitle" id="detailDialog">
+      <div class="dialog-head">
+        <h2 id="detailTitle" tabindex="-1">Disc i min bag</h2>
+        <button aria-label="Luk" class="icon-button" data-close="detailDialog">
+          ×
+        </button>
+      </div>
+      <div class="detail-scroll">
+        <div class="detail-pager">
+          <button
+            aria-label="Forrige disc i listen"
+            class="icon-button"
+            id="detailPrevious"
+          >
+            ‹</button
+          ><span id="detailPosition"></span
+          ><button
+            aria-label="Næste disc i listen"
+            class="icon-button"
+            id="detailNext"
+          >
+            ›
+          </button>
+        </div>
+        <div id="detailContent"></div>
+      </div>
+      <div class="detail-actions">
+        <button class="primary wide" id="detailUse">Brug til kast ↗</button>
+        <div class="button-row">
+          <button id="detailEdit">Redigér</button
+          ><button class="danger" id="detailDelete">Slet disc</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog aria-labelledby="pickerTitle" id="pickerDialog">
+      <div class="dialog-head">
+        <h2 id="pickerTitle">Vælg disc</h2>
+        <button aria-label="Luk" class="icon-button" data-close="pickerDialog">
+          ×
+        </button>
+      </div>
+      <div class="picker-tools">
+        <label class="sr-only" for="pickerSearch">Søg i bag og eksempler</label
+        ><input
+          autocomplete="off"
+          id="pickerSearch"
+          placeholder="Søg i min bag…"
+          type="search"
+        />
+        <p class="hint" id="pickerCount"></p>
+      </div>
+      <div class="picker-results" id="pickerResults"></div>
+      <div class="dialog-footer">
+        <button class="primary wide" id="pickerAdd">
+          ＋ Tilføj en ny disc
+        </button>
+      </div>
+    </dialog>
+    <dialog aria-labelledby="discDialogTitle" id="discDialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">MIN BAG</span>
+          <h2 id="discDialogTitle" tabindex="-1">Tilføj en disc</h2>
+        </div>
+        <button
+          aria-label="Luk"
+          class="icon-button"
+          data-close="discDialog"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+      <section class="catalog-step" id="catalogStep">
+        <div class="catalog-tools">
+          <label for="discSearch">Søg model eller mærke</label>
+          <div class="search-control">
+            <input
+              aria-controls="discSearchResults"
+              autocomplete="off"
+              enterkeyhint="search"
+              id="discSearch"
+              placeholder="Fx Berg, F9 eller Innova"
+              type="search"
+            /><button
+              aria-label="Ryd søgning"
+              class="icon-button"
+              id="clearDiscSearch"
+            >
+              ×
+            </button>
+          </div>
+          <div class="catalog-filters">
+            <label
+              ><span class="sr-only">Mærke</span
+              ><select id="catalogBrand">
+                <option value="all">Alle mærker</option>
+              </select></label
+            ><label
+              ><span class="sr-only">Disc-type</span
+              ><select id="catalogType">
+                <option value="all">Alle typer</option>
+                <option value="putter">Putter</option>
+                <option value="midrange">Midrange</option>
+                <option value="fairway">Fairway</option>
+                <option value="distance">Distance</option>
+              </select></label
+            >
+          </div>
+          <p class="hint" id="catalogCount" role="status"></p>
+        </div>
+        <div class="catalog-scroll">
+          <div class="disc-search-results" id="discSearchResults"></div>
+          <button class="wide" hidden="" id="moreDiscs">
+            Vis flere modeller
+          </button>
+        </div>
+        <div class="dialog-footer">
+          <button class="wide" id="manualDisc">
+            ＋ Opret disc med egne tal
+          </button>
+        </div>
+      </section>
+      <form hidden="" id="discForm">
+        <div class="form-fields">
+          <details id="discTemplateLabel">
+            <summary>Brug generiske flighttal</summary>
+            <label class="sr-only" for="discTemplate">Eksempel</label
+            ><select id="discTemplate">
+              <option value="custom">Egne flight numbers</option>
+              <option value="demo:putter">Putter · 1 / 1 / 0 / 2</option>
+              <option value="demo:midrange">Midrange · 4 / 3 / 0 / 3</option>
+              <option value="demo:driver">Distance · 12 / 5 / −1 / 3</option>
+              <option value="demo:understable">
+                Understable · 9 / 6 / −4 / 1
+              </option>
+            </select>
+          </details>
+          <p class="catalog-selection" hidden="" id="catalogSelection"></p>
+          <label
+            >Discens navn<input
+              autocomplete="off"
+              id="discName"
+              maxlength="80"
+              placeholder="Discens navn"
+              required=""
+          /></label>
+          <div class="form-grid">
+            <label
+              >Mærke<input
+                id="discBrand"
+                maxlength="60"
+                placeholder="Producent" /></label
+            ><label
+              >Plast<input
+                id="discPlastic"
+                maxlength="60"
+                placeholder="Valgfrit"
+            /></label>
+          </div>
+          <div class="chips" hidden="" id="plasticSuggest"></div>
+          <div class="numbers">
+            <label
+              >Speed<input
+                id="discSpeed"
+                inputmode="decimal"
+                max="15"
+                min="1"
+                required=""
+                step="0.5"
+                type="number" /></label
+            ><label
+              >Glide<input
+                id="discGlide"
+                inputmode="decimal"
+                max="7"
+                min="0"
+                required=""
+                step="0.5"
+                type="number" /></label
+            ><label
+              >Turn<input
+                id="discTurn"
+                max="2"
+                min="-5"
+                required=""
+                step="0.5"
+                type="number" /></label
+            ><label
+              >Fade<input
+                id="discFade"
+                inputmode="decimal"
+                max="6"
+                min="-2"
+                required=""
+                step="0.5"
+                type="number"
+            /></label>
+          </div>
+          <div class="form-grid">
+            <label
+              >Vægt · g<input
+                id="discWeight"
+                inputmode="numeric"
+                max="200"
+                min="100"
+                placeholder="Ukendt"
+                step="1"
+                type="number" /></label
+            ><label
+              >Discens farve<input id="discColor" type="color" value="#c4f275"
+            /></label>
+          </div>
+          <div class="photo-editor">
+            <h3>Billede af din disc</h3>
+            <img
+              id="discPhotoPreview"
+              referrerpolicy="no-referrer"
+              alt="Discens billede"
+              hidden
+            />
+            <div class="button-row">
+              <button type="button" id="photoCamera">Tag foto</button
+              ><button type="button" id="photoGallery">Vælg billede</button
+              ><button type="button" id="photoRemove">Fjern</button>
+            </div>
+            <input
+              id="photoCameraFile"
+              type="file"
+              accept="image/*"
+              capture="environment"
+              hidden
+            /><input
+              id="photoGalleryFile"
+              type="file"
+              accept="image/*"
+              hidden
+            /><label
+              >Billed-URL · valgfrit<input
+                type="url"
+                id="discImageUrl"
+                placeholder="https://…"
+                maxlength="2000"
+            /></label>
+            <p class="hint" id="photoStatus">
+              Fotos nedskaleres og gemmes lokalt. Uploadede fotos følger med i
+              backup. URL-billeder kræver net.
+            </p>
+          </div>
+          <label
+            >Noter<textarea
+              id="discNotes"
+              maxlength="500"
+              placeholder="Slid, favoritkast, hvordan den flyver…"
+              rows="2"
+            ></textarea></label
+          ><label class="check-label"
+            ><input id="discFavorite" type="checkbox" /> Favorit i min
+            bag</label
+          >
+          <p class="hint">
+            Tjek flighttal på din egen variant. Ukendt vægt simuleres som 175 g.
+          </p>
+        </div>
+        <p class="error" hidden="" id="discError" role="alert"></p>
+        <div class="dialog-footer">
+          <button id="backToCatalog" type="button">‹ Søg igen</button
+          ><button class="primary wide" id="saveDiscButton" type="submit">
+            Gem i bag
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog aria-labelledby="importTitle" id="importDialog">
+      <div class="dialog-head">
+        <h2 id="importTitle">Importér backup</h2>
+        <button aria-label="Luk" class="icon-button" data-close="importDialog">
+          ×
+        </button>
+      </div>
+      <p id="importSummary"></p>
+      <label class="radio-card"
+        ><input checked="" name="importMode" type="radio" value="merge" /><span
+          ><strong>Tilføj discs til min bag</strong
+          ><small>Behold min nuværende profil og mine discs.</small></span
+        ></label
+      ><label class="radio-card"
+        ><input name="importMode" type="radio" value="replace" /><span
+          ><strong>Gendan hele backup</strong
+          ><small
+            >Erstat bag, profil og kastindstillinger. Kan fortrydes lige efter
+            import.</small
+          ></span
+        ></label
+      >
+      <p class="error" hidden="" id="importError" role="alert"></p>
+      <button class="primary wide" id="confirmImport">Importér</button>
+    </dialog>
+    <noscript
+      >JavaScript skal være slået til for at bruge Disc Flight Lab.</noscript
+    >
+    <input
+      accept=".json,application/json"
+      hidden=""
+      id="catalogFile"
+      type="file"
+    />
+    <dialog id="listDialog" aria-labelledby="listTitle">
+      <div class="dialog-head">
+        <h2 id="listTitle">Gennemse discs</h2>
+        <button
+          class="icon-button"
+          data-close="listDialog"
+          aria-label="Luk discliste"
+        >
+          ×
+        </button>
+      </div>
+      <p class="hint">
+        Kun markerede discs tilføjes. Du kan redigere oplysninger i din bag
+        bagefter.
+      </p>
+      <div id="listRows" class="list-rows"></div>
+      <p id="listError" class="error" hidden role="alert"></p>
+      <div class="dialog-footer">
+        <button id="confirmList" class="primary wide">
+          Tilføj markerede discs
+        </button>
+      </div>
+    </dialog>
+
+    <noscript>Disc Flight Lab kræver JavaScript for at beregne kast.</noscript>
+  </body>
+</html>
