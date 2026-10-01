@@ -7,7 +7,6 @@ Modulær videreførelse af `disc-flight-lab-v6.html`. Projektet indeholder hele 
 Node.js 22.12 eller nyere:
 
 ```bash
-nvm use
 npm ci
 npm run dev
 ```
