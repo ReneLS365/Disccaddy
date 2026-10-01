@@ -8,6 +8,13 @@ import {
 import { exportProfile, importProfile } from "../calibration/AeroProfile.js";
 
 const fmt = (v, digits = 2) => (v == null ? "—" : Number(v).toFixed(digits));
+const escapeHtml = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 export function mountCalibration({
   getSettings,
   getFlights,
@@ -17,7 +24,7 @@ export function mountCalibration({
   const $ = (id) => document.getElementById(id);
   let result = null;
   const metric = (label, value, note = "") =>
-    `<article><small>${label}</small><strong>${value}</strong>${note ? `<small>${note}</small>` : ""}</article>`;
+    `<article><small>${escapeHtml(label)}</small><strong>${escapeHtml(value)}</strong>${note ? `<small>${escapeHtml(note)}</small>` : ""}</article>`;
   function parse() {
     const value = JSON.parse($("calibrationData").value);
     if (!Array.isArray(value))

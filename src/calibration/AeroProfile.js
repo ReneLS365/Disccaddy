@@ -1,4 +1,5 @@
 import { Aero } from "../physics/Aero.js";
+import { PARAMETER_BOUNDS } from "./ParameterBounds.js";
 
 export const PROFILE_SCHEMA = "disc-flight-lab-aero-profile";
 const sources = ["baseline", "calibrated", "measured"];
@@ -14,7 +15,7 @@ export function materializeAeroProfile(baseline, parameters) {
   out.name = `${baseline.name} · kalibreret`;
   out.basis = "Individuel kastkalibrering";
   out.quality = "Kalibreret";
-  return out;
+  return Aero.snapshot(out);
 }
 
 export function exportProfile(profile) {
@@ -36,7 +37,20 @@ export function importProfile(text) {
   if (!value.discId || !value.physical || !value.aero || !value.calibration)
     throw new Error("Kalibreringsprofilen mangler obligatoriske felter.");
   value.aero.snapshot = Aero.snapshot(value.aero.snapshot);
-  for (const group of Object.values(value.aero.sources || {}))
+  const parameterNames = Object.keys(PARAMETER_BOUNDS),
+    parameters = value.aero.parameters;
+  if (
+    parameters !== undefined &&
+    (typeof parameters !== "object" ||
+      parameters === null ||
+      Array.isArray(parameters) ||
+      Object.keys(parameters).some((name) => !parameterNames.includes(name)))
+  )
+    throw new Error("Kalibreringsprofilen indeholder ukendte parametre.");
+  for (const [name, group] of Object.entries(value.aero.sources || {})) {
+    if (!parameterNames.includes(name))
+      throw new Error("Kalibreringsprofilen indeholder ukendte parametre.");
     if (!sources.includes(group)) throw new Error("Ugyldig parameterkilde.");
+  }
   return value;
 }

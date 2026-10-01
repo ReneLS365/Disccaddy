@@ -127,6 +127,7 @@ test("profiler serialiseres, valideres og bevarer partial-calibration kilder", (
     rateDampingScale: 1,
     spinDragScale: 1,
   });
+  assert.equal(snapshot.schema, "disc-aero-1");
   const profile = {
     version: 1,
     discId: "x",
@@ -142,6 +143,9 @@ test("profiler serialiseres, valideres og bevarer partial-calibration kilder", (
     profile.aero.sources,
   );
   assert.throws(() => importProfile('{"schema":"other"}'));
+  const unsafe = JSON.parse(exportProfile(profile));
+  unsafe.aero.parameters = { "<img src=x onerror=alert(1)>": 1 };
+  assert.throws(() => importProfile(unsafe), /ukendte parametre/);
 });
 
 test("multi-throw staged calibration, validation, uncertainty og sensitivity", async () => {
