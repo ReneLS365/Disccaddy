@@ -94,6 +94,12 @@ function createAero(profiles, geometries) {
       Jax: num("Jax", 0.0005, 0.04),
       Jtrans: num("Jtrans", 0.00025, 0.03),
     };
+    for (const [key, lo, hi] of [
+      ["pitchDamping", -10, 0],
+      ["rollDamping", -10, 0],
+      ["spinDrag", 0, 0.1],
+    ])
+      if (v[key] !== undefined) o[key] = num(key, lo, hi);
     if (o.Jax > 2.01 * o.Jtrans)
       throw new Error(
         "Inertimomenterne skal opfylde Jax ≤ 2 × Jtrans. J angives i m² (I/masse).",

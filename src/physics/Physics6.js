@@ -158,8 +158,11 @@ function createPhysics6() {
       pr = dot(omega, right),
       rr = dot(omega, f),
       rate = c.diameter / (2 * V),
-      spinScale = (p.spinDragScale ?? 1) * (pert.spinScale ?? 1);
-    const rateScale = (p.rateDampingScale ?? 1) * (pert.dampingScale ?? 1),
+      spinScale =
+        (p.spinDragScale ?? 1) * (pert.spinDragScale ?? pert.spinScale ?? 1);
+    const rateScale =
+        (p.rateDampingScale ?? 1) *
+        (pert.rateDampingScale ?? pert.dampingScale ?? 1),
       CRoll =
         Aero.lookup(t, "CRoll", deg, lambda) +
         c.rollDamping * rr * rate * rateScale;

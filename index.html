@@ -1410,6 +1410,78 @@
           </p>
         </div>
       </section>
+      <section
+        class="view calibration-view"
+        id="calibrationView"
+        hidden
+        aria-labelledby="calibrationTitle"
+      >
+        <header class="calibration-head">
+          <div>
+            <span class="eyebrow">Disc</span>
+            <h1 id="calibrationTitle">Kalibrering</h1>
+          </div>
+          <span class="quality-pill" id="calibrationStatus"
+            >Ikke kalibreret</span
+          >
+        </header>
+        <div class="calibration-grid">
+          <section class="profile-card">
+            <h2>Observerede kast</h2>
+            <p class="hint">
+              Importér mindst to kast som JSON. Flight numbers bruges aldrig som
+              aerodynamiske input.
+            </p>
+            <label
+              >Kalibreringsdatasæt<textarea
+                id="calibrationData"
+                rows="10"
+                spellcheck="false"
+                placeholder='[{"id":"kast-1","discId":"...","simulatorInput":{},"observations":[{"timestamp":0,"position":[0,1.5,0]}]}]'
+              ></textarea>
+            </label>
+            <div class="calibration-actions">
+              <button id="calibrationExample" class="secondary">
+                Brug aktuelle kast som skabelon</button
+              ><button id="runCalibration">Kør kalibrering</button>
+            </div>
+            <progress
+              id="calibrationProgress"
+              max="1"
+              value="0"
+              hidden
+            ></progress>
+            <p id="calibrationMessage" class="hint" role="status"></p>
+          </section>
+          <section class="profile-card">
+            <h2>Datakvalitet</h2>
+            <div id="coverageMetrics" class="metric-grid">
+              <p>Importér data for at se coverage og observability.</p>
+            </div>
+          </section>
+          <section class="profile-card calibration-results">
+            <h2>Resultat &amp; validering</h2>
+            <div id="calibrationMetrics" class="metric-grid">
+              <p>Ingen kalibrering endnu.</p>
+            </div>
+            <canvas
+              id="calibrationChart"
+              width="640"
+              height="280"
+              aria-label="Observeret bane sammenlignet med før og efter kalibrering"
+            ></canvas>
+            <div class="calibration-actions">
+              <button id="exportCalibration" disabled>Eksportér profil</button
+              ><label class="file-button"
+                >Importér profil<input
+                  id="importCalibration"
+                  type="file"
+                  accept="application/json"
+              /></label>
+            </div>
+          </section>
+        </div>
+      </section>
     </main>
     <div class="toast" hidden="" id="toast" role="status">
       <span id="toastText"></span><button hidden="" id="undo">Fortryd</button
@@ -1423,6 +1495,7 @@
       ><button class="nav" data-view="bag">
         Min bag <span class="count" id="bagCount">0</span></button
       ><button class="nav" data-view="profile">◎ Profil</button>
+      <button class="nav" data-view="calibration">⚙ Kalibrering</button>
     </nav>
     <dialog id="coeffDialog" aria-labelledby="coefficientTitle">
       <div class="dialog-head">

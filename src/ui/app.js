@@ -12,6 +12,7 @@ import { drawFallback as renderCanvas } from "./canvas.js";
 import { mountRound } from "./round.js";
 import { mountTheme, palette } from "./theme.js";
 import { renderWarnings } from "./warnings.js";
+import { mountCalibration } from "./calibration.js";
 export async function startApp() {
   "use strict";
   const $ = (id) => document.getElementById(id),
@@ -475,14 +476,15 @@ export async function startApp() {
     }
   });
   function showView(view) {
-    if (!["simulator", "bag", "profile"].includes(view)) view = "simulator";
+    if (!["simulator", "bag", "profile", "calibration"].includes(view))
+      view = "simulator";
     currentView = view;
     if (view !== "simulator") {
       playing = false;
       document.body.classList.remove("expanded");
       $("expand").setAttribute("aria-pressed", "false");
     }
-    for (const key of ["simulator", "bag", "profile"])
+    for (const key of ["simulator", "bag", "profile", "calibration"])
       $(key + "View").hidden = key !== view;
     for (const button of all(".nav")) {
       button.classList.toggle("active", button.dataset.view === view);
@@ -3051,6 +3053,17 @@ export async function startApp() {
     },
     showFlight: (f) => {
       acceptFlights([f], "single", false);
+    },
+    toast,
+  });
+  mountCalibration({
+    getSettings: () => ({ ...settings }),
+    getFlights: () => flights,
+    applyProfile: async (profile) => {
+      settings.aeroPreset = "customTable";
+      settings.customTable = profile.aero.snapshot;
+      writeSettings();
+      await persist();
     },
     toast,
   });
