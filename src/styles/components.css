@@ -3,6 +3,81 @@
   flex-direction: column;
   background: var(--bg);
 }
+
+.calibration-view {
+  padding: 1rem;
+  max-width: 1080px;
+  margin: 0 auto 5rem;
+}
+.calibration-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.calibration-head h1 {
+  margin: 0.15rem 0;
+}
+.calibration-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+.calibration-grid textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  font:
+    0.75rem/1.45 ui-monospace,
+    monospace;
+}
+.calibration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.calibration-results canvas {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background: color-mix(in srgb, var(--panel), #000 8%);
+  border-radius: 0.7rem;
+  margin-top: 0.8rem;
+}
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.metric-grid article {
+  min-width: 0;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+}
+.metric-grid small,
+.metric-grid strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.quality-pill {
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+@media (min-width: 850px) {
+  .calibration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .calibration-results {
+    grid-column: 1/-1;
+  }
+}
 .page-heading {
   display: flex;
   justify-content: space-between;
